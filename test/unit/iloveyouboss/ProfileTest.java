@@ -28,4 +28,22 @@ public class ProfileTest {
 
         assertThat(matches, is(true));
     }
+
+    @Test
+    public void returns_false_when_answers_not_matched_given_one_answer() throws Exception {
+        Question question = new BooleanQuestion(1, "test");
+
+        Answer answer = new Answer(question, 1);
+        Criterion criterion = new Criterion(answer, Weight.Important);
+        Criteria criteria = new Criteria();
+        criteria.add(criterion);
+
+        Profile profile = new Profile("name");
+        Answer myAnswer = new Answer(question, 2);
+        profile.add(myAnswer);
+
+        boolean matches = profile.matches(criteria);
+
+        assertThat(matches, is(false));
+    }
 }
